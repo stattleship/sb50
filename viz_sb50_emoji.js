@@ -148,7 +148,7 @@ function build() {
             //finds the largest node in cluster
             outArray.forEach(function(d, i) {
 
-                outArray[i].radius = Math.sqrt((6*d.radius/max*mult)/Math.PI*50) //RADIUS Size CHANGE***
+                outArray[i].radius = Math.sqrt((7*d.radius/max*mult)/Math.PI*50) //RADIUS Size CHANGE***
 
                 outArray[i].y = d.group * height / m /2
                 if (!clusters[d.group] || (d.radius > clusters[d.group].radius))
