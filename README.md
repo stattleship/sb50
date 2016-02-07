@@ -5,3 +5,4 @@ Twitter Emoji D3 visualization for Super Bowl 50. The bubbles represent the rela
 Visualization by <a href="https://twitter.com/seandolinar">Sean Dolinar</a>.
 
 Data collected on February 7, 2016.
+Emoji image files are from <a href="https://github.com/iamcal/emoji-data">https://github.com/iamcal/emoji-data</a>
