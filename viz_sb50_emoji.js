@@ -91,6 +91,10 @@ function build() {
 
         var clusters;
 
+        var total_emoji = graph.nodes.reduce(function(p,c) {
+            return p + c.radius
+        },0)
+        console.log(total_emoji)
         //filters date chunks
         function buildData(a,b) {
 
@@ -144,7 +148,7 @@ function build() {
             //finds the largest node in cluster
             outArray.forEach(function(d, i) {
 
-                outArray[i].radius = Math.sqrt((12*d.radius/max*mult)/Math.PI*50) //RADIUS Size CHANGE***
+                outArray[i].radius = Math.sqrt((10*d.radius/max*mult)/Math.PI*50) //RADIUS Size CHANGE***
 
                 outArray[i].y = d.group * height / m /2
                 if (!clusters[d.group] || (d.radius > clusters[d.group].radius))
