@@ -76,9 +76,9 @@ function build() {
         //gets date chunks for interface
         var timeRange = d3.extent(datetimeUnique)
         var startPreT = datetimeUnique[0]//timeRange[0]
-        var startGameT = Date.UTC(2016,1,7,23,0)
+        var startGameT = Date.UTC(2016,1,7,23,30)
         var endGameT = Date.UTC(2016,1,7,28,0)
-        var endPostT = Date.UTC(2016,1,7,40,0) //timeRange[1]
+        var endPostT = Date.UTC(2016,1,7,32,0) //timeRange[1]
         timeRange = [startPreT, endPostT]
 
         var outArray = []
@@ -144,7 +144,7 @@ function build() {
             //finds the largest node in cluster
             outArray.forEach(function(d, i) {
 
-                outArray[i].radius = Math.sqrt((4*d.radius/max*mult)/Math.PI*50) //RADIUS Size
+                outArray[i].radius = Math.sqrt((25*d.radius/max*mult)/Math.PI*50) //RADIUS Size
 
                 outArray[i].y = d.group * height / m /2
                 if (!clusters[d.group] || (d.radius > clusters[d.group].radius))
@@ -179,23 +179,27 @@ function build() {
 
                     scaleX = d3.scale.linear()
                         .domain(timeRange)
-                        .range([0,width])
+                        .range([15,width-15])
 
                     var axisX = d3.svg.axis()
                         .scale(scaleX)
                         .orient("bottom")
-                        .tickValues([startGameT,endGameT])
+                        .tickValues([startPreT, startGameT,endGameT, endPostT])
                         .tickFormat(function(d) {
+                            
+                            function leadZero(min) {
+                                return min < 10 ? '0' + min : min
+                            }
+
                             var dt = new Date(d)
                             var ampm =  dt.getHours() > 11 ? ' PM' : ' AM'
-                            return dt.getHours() > 12 ? dt.getHours() % 12 + ampm : dt.getHours()
+                            return dt.getHours() > 12 ? dt.getHours() % 12 + ':' + leadZero(dt.getMinutes(2)) + ampm : dt.getHours() + ':' + leadZero(dt.getMinutes(2)) + ampm
                         })
                         .outerTickSize(4)
 
-
                     scaleY = d3.scale.linear()
                         .domain([0,lineMax])
-                        .range([125-20, 0])
+                        .range([125-20, 2])
 
                     lineGen = d3.svg.line()
                         .x(function(d,i) { return scaleX(d.datetime); })
@@ -214,12 +218,20 @@ function build() {
                         .attr("transform", "translate(0," + 105 + ")")
                         .call(axisX)
                         
+                       axis.select("text")
+                        .style("text-anchor", "start");
+                        
+                    $('.axis text:last').css("text-anchor", "end");
+                        
+                        
+                    
+                        
                     //pregame
                     line.append('rect')
                         .attr('x', startPre)
                         .attr('width', startGame - startPre)
-                        .attr('y', scaleY(lineMax) + 0)
-                        .attr('height', scaleY(0))
+                        .attr('y', scaleY(lineMax))
+                        .attr('height', scaleY(0) - 2)
                         .style('fill', '707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > startPreT ? 'time pre click' : 'time pre'
@@ -234,13 +246,13 @@ function build() {
                             return datetimeUnique.slice(-1) > startPreT ? 'time pre linechart click' : 'time pre linechart'
                         })
                         .style('fill','#eeeeee')
-                        .text('Pregame')
+                        .text('Pre')
 
                     //during the game
                     line.append('rect')
                         .attr('x', startGame + 5)
                         .attr('width', endGame - startGame - 5)
-                        .attr('y', scaleY(lineMax) + 0)
+                        .attr('y', scaleY(lineMax))
                         .attr('height', scaleY(0))
                         .style('fill', '707070')
                         .attr('class', function() {
@@ -268,8 +280,8 @@ function build() {
                     line.append('rect')
                         .attr('x', endGame + 5)
                         .attr('width', endPost - endGame - 5)
-                        .attr('y', scaleY(lineMax) - 0)
-                        .attr('height', scaleY(0)+ 0)
+                        .attr('y', scaleY(lineMax))
+                        .attr('height', scaleY(0))
                         .style('fill', '707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > endGameT ? 'time post click' : 'time post'
@@ -291,7 +303,7 @@ function build() {
                         .style('cursor', function() {
                             return datetimeUnique.slice(-1) > endGameT ? 'pointer' : 'default'
                         })
-                        .text('Postgame')
+                        .text('Post')
 
                 }
 
