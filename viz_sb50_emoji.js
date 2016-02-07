@@ -20,8 +20,8 @@ d3.selection.prototype.moveToFront = function() {
 
 
 function build() {
-    console.log(window.innerWidth)
-    var width = Math.min(Math.max(320, window.innerWidth),800),
+
+    var width = Math.min(Math.max(320, $('.d3-container').innerWidth()),800),
         height = $('.d3-container').innerHeight() - $('.button-container').outerHeight(true) - 2 * $('.chart.title').outerHeight(true) - 2 * $('.hbar').outerHeight(true) - 131,
         padding = 1, // separation between same-color nodes
         clusterPadding = 2, // separation between different-color nodes
@@ -522,7 +522,7 @@ function build() {
             force.stop()
             var node = svg.selectAll(".node")
 
-            width = Math.min(Math.max(320, window.innerWidth),800),
+            width = Math.min(Math.max(320, $('.d3-container').innerWidth()),800),
             height = $('.d3-container').innerHeight() - $('.button-container').outerHeight() - 2 * $('.chart.title').outerHeight() - 2 * $('.hbar').outerHeight() - 131,
             mult = 320/width
 
