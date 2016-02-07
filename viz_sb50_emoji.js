@@ -253,7 +253,7 @@ function build() {
                         .attr('x', startGame + 5)
                         .attr('width', endGame - startGame - 5)
                         .attr('y', scaleY(lineMax))
-                        .attr('height', scaleY(0))
+                        .attr('height', scaleY(0)-2)
                         .style('fill', '707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > startGameT ? 'time game click' : 'time game'
@@ -281,7 +281,7 @@ function build() {
                         .attr('x', endGame + 5)
                         .attr('width', endPost - endGame - 5)
                         .attr('y', scaleY(lineMax))
-                        .attr('height', scaleY(0))
+                        .attr('height', scaleY(0) - 2)
                         .style('fill', '707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > endGameT ? 'time post click' : 'time post'
