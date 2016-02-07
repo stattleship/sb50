@@ -75,10 +75,11 @@ function build() {
 
         //gets date chunks for interface
         var timeRange = d3.extent(datetimeUnique)
-        var startPreT = timeRange[0]
-        var startGameT = Date.UTC(2016,1,5,30,0)
-        var endGameT = Date.UTC(2016,1,6,14,0)
-        var endPostT = timeRange[1]
+        var startPreT = datetimeUnique[0]//timeRange[0]
+        var startGameT = Date.UTC(2016,1,7,23,0)
+        var endGameT = Date.UTC(2016,1,7,28,0)
+        var endPostT = Date.UTC(2016,1,7,40,0) //timeRange[1]
+        timeRange = [startPreT, endPostT]
 
         var outArray = []
         var timeSeriesArray = []
@@ -187,7 +188,7 @@ function build() {
                         .tickFormat(function(d) {
                             var dt = new Date(d)
                             var ampm =  dt.getHours() > 11 ? ' PM' : ' AM'
-                            return dt.getHours() % 13 + ampm
+                            return dt.getHours() > 12 ? dt.getHours() % 12 + ampm : dt.getHours()
                         })
                         .outerTickSize(4)
 
@@ -208,12 +209,11 @@ function build() {
 
                     line.selectAll('*').remove()
 
-                    line.append("g")
+                    var axis = line.append("g")
                         .attr("class", "axis")
                         .attr("transform", "translate(0," + 105 + ")")
                         .call(axisX)
-
-
+                        
                     //pregame
                     line.append('rect')
                         .attr('x', startPre)
@@ -221,14 +221,18 @@ function build() {
                         .attr('y', scaleY(lineMax) + 0)
                         .attr('height', scaleY(0))
                         .style('fill', '707070')
-                        .attr('class', 'time pre')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > startPreT ? 'time pre click' : 'time pre'
+                        })
                         .attr('data-time', 'pre')
 
                     line.append('text')
                         .attr('x', (startPre+startGame)/2)
                         .attr('y', scaleY(0)/2)
                         .attr('text-anchor','middle')
-                        .attr('class','text linechart time pre')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > startPreT ? 'time pre linechart click' : 'time pre linechart'
+                        })
                         .style('fill','#eeeeee')
                         .text('Pregame')
 
@@ -239,16 +243,26 @@ function build() {
                         .attr('y', scaleY(lineMax) + 0)
                         .attr('height', scaleY(0))
                         .style('fill', '707070')
-                        .attr('class', 'time game')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > startGameT ? 'time game click' : 'time game'
+                        })
                         .attr('data-time', 'game')
+                        .style('cursor', function() {
+                            return datetimeUnique.slice(-1) > startGameT ? 'pointer' : 'default'
+                        })
 
                     line.append('text')
-                        .attr('x', (startGame+endGame)/2)
+                        .attr('x', (startGame+endGame)/2+2)
                         .attr('y', scaleY(0)/2)
                         .attr('text-anchor','middle')
-                        .attr('class','text linechart time game')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > startGameT ? 'time game linechart click' : 'time game linechart'
+                        })
                         .style('fill','#eeeeee')
-                        .text('In Game')
+                        .style('cursor', function() {
+                            return datetimeUnique.slice(-1) > startGameT ? 'pointer' : null
+                        })
+                        .text('SB50')
 
                     //after the game
                     line.append('rect')
@@ -257,16 +271,26 @@ function build() {
                         .attr('y', scaleY(lineMax) - 0)
                         .attr('height', scaleY(0)+ 0)
                         .style('fill', '707070')
-                        .attr('class', 'time post')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > endGameT ? 'time post click' : 'time post'
+                        })
                         .attr('data-time', 'post')
+                        .style('cursor', function() {
+                            return datetimeUnique.slice(-1) > endGameT ? 'pointer' : 'default'
+                        })
 
                     line.append('text')
                         .attr('x', (endPost + endGame)/2)
                         // .attr('width', startGame - startPre)
                         .attr('y', scaleY(0)/2)
                         .attr('text-anchor','middle')
-                        .attr('class','text linechart time post')
+                        .attr('class', function() {
+                            return datetimeUnique.slice(-1) > endGameT ? 'time post linechart click' : 'time post linechart'
+                        })
                         .style('fill','#eeeeee')
+                        .style('cursor', function() {
+                            return datetimeUnique.slice(-1) > endGameT ? 'pointer' : 'default'
+                        })
                         .text('Postgame')
 
                 }
@@ -478,7 +502,7 @@ function build() {
             })
         }
 
-        $('.time, .button.allday').click(timeFilter)
+        $('.time.click, .button.allday').click(timeFilter)
 
 
         window.addEventListener("resize", function() {
@@ -512,7 +536,7 @@ function build() {
             });
             force.start()
 
-            $('.time').click(timeFilter)
+            $('.time.click, .button.allday').click(timeFilter)
 
         })
 

@@ -10,187 +10,212 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
 <style>
-  body {
-      margin: 0;
-      width: 100%;
-      height: 1000px;
-      min-width: 310px;
-      max-width: 800px;
-      font-family: 'Source Sans Pro', sans-serif;
-  }
-
-  .d3-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      text-align: center;
-  }
-
-  .node circle {
-      cursor: pointer;
-      /*stroke: #3182bd;*/
-      /*stroke-width: 1.5px;*/
-  }
-
-  text {
-      font-size: 28px;
-      font-family: 'Source Sans Pro', sans-serif;
-      pointer-events: none;
-      text-anchor: middle;
-  }
-  .text.linechart {
-      fill: #909090;
-      font-size: 26px;
-  }
-
-  .link {
-      stroke: #999;
-      stroke-opacity: .6;
-  }
-  .button-container {
-      margin: 0 auto;
-  }
-
-  .button-hash {
-      font-size: 20px;
-      width: 25%;
-      min-width: 100px;
-      margin: 5px 10px;
-      border-radius: 10px;
-      text-align: center;
-      line-height: 2;
-      display: inline-block;
-      border: 3px solid black;
-      cursor: pointer;
-  }
-  .button.allday {
-      float:right;
-      border: 1px solid black;
-      border-radius: 15px;
-      font-size: 10px;
-      height: 20px;
-      width: 50px;
-      line-height: 2;
-      text-align: center;
-      margin-bottom: 5px;
-      background-color: #00abc6;
-      cursor: pointer;
-  }
-  .time {
-      cursor: pointer;
-  }
-
-  .popup-bkgd {
-      position: absolute;
-      top: 0px;
-      background: rgba(0,0,0,.5);
-      height: 100%;
-      width: 100%;
-  }
-
-  .popup {
-      font-size: 9px;
-      background-color: rgba(255,255,255,.9);
-      position: absolute;
-      overflow: scroll;
-      top: 10%;
-      left: 25%;
-      width: 50%;
-      height: 50%;
-      margin: 0 auto;
-  }
-  .viz-title {
-      text-align: left;
-      height: 50px;
-      margin-bottom: 10px;
-      padding-top: 15px;
-      padding-left: 2%;
-      padding-right: 5%;
-      font-size: 30px;
-      line-height: 50px;
-  }
-  .title{
-      text-align: left;
-      padding-top: 15px;
-      padding-bottom: 5px;
-      padding-left: 5%;
-      padding-right: 2%;
-      font-size: 16px;
-  }
-  .axis path {
-      stroke: black;
-      stroke-width: 0;
-      display: none;
-  }
-
-  .axis line {
-      fill: none;
-      stroke: black;
-      stroke-width: 0;
-      shape-rendering: crispEdges;
-  }
-
-  .axis text {
-      font-size: 14px;
-  }
-
-  .axis.title {
-      font-size: 16px;
-  }
-  .hbar {
-      width: 60%;
-      height: 1px;
-      background-color: #505050;
-      margin: 15px auto;
-  }
-  @media (max-width: 600px) {
-      .button-hash {
-          font-size: 16px;
-      }
-   }
-   @media (max-width: 500px) {
-      .viz-title {
-          font-size: 24px;
-      }
-      .button-hash {
-          font-size: 12px;
-      }
-      .text.linechart{
-          font-size: 20px;
-      }
-  }
-  @media (max-width: 400px) {
-      .viz-title {
-         font-size: 20px;
-      }
-      .text.linechart{
-          font-size: 14px;
-      }
-  }
-
+    body {
+        margin: 0;
+        width: 100%;
+        height: 1000px;
+        min-width: 310px;
+        /*max-width: 800px;*/
+        font-family: 'Source Sans Pro', sans-serif;
+        text-align: center;
+    }
+    .outer {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 800px;
+        border: 1px solid black;
+        border-radius: 4px;
+    }
+    
+    
+    .d3-container {
+        width: 100%;
+        /*height: 100%;*/
+        height: 1000px;
+        position: relative;
+        text-align: center;
+    }
+    
+    .node circle {
+        cursor: pointer;
+        /*stroke: #3182bd;*/
+        /*stroke-width: 1.5px;*/
+    }
+    
+    text {
+        font-size: 28px;
+        font-family: 'Source Sans Pro', sans-serif;
+        pointer-events: none;
+        text-anchor: middle;
+    }
+    
+    text.linechart {
+        fill: #909090;
+        font-size: 26px;
+    }
+    
+    .link {
+        stroke: #999;
+        stroke-opacity: .6;
+    }
+    
+    .button-container {
+        margin: 0 auto;
+    }
+    
+    .button-hash {
+        font-size: 20px;
+        width: 25%;
+        min-width: 100px;
+        margin: 5px 10px;
+        border-radius: 10px;
+        text-align: center;
+        line-height: 2;
+        display: inline-block;
+        border: 3px solid black;
+        cursor: pointer;
+    }
+    
+    .button.allday {
+        float: right;
+        border: 1px solid black;
+        border-radius: 15px;
+        font-size: 10px;
+        height: 20px;
+        width: 50px;
+        line-height: 2;
+        text-align: center;
+        margin-bottom: 5px;
+        background-color: #00abc6;
+        cursor: pointer;
+    }
+    
+    .time {
+        cursor: pointer;
+    }
+    
+    .popup-bkgd {
+        position: absolute;
+        top: 0px;
+        background: rgba(0, 0, 0, .5);
+        height: 100%;
+        width: 100%;
+    }
+    
+    .popup {
+        font-size: 9px;
+        background-color: rgba(255, 255, 255, .9);
+        position: absolute;
+        overflow: scroll;
+        top: 10%;
+        left: 25%;
+        width: 50%;
+        height: 50%;
+        margin: 0 auto;
+    }
+    
+    .viz-title {
+        text-align: left;
+        height: 50px;
+        margin-bottom: 10px;
+        padding-top: 15px;
+        padding-left: 2%;
+        padding-right: 5%;
+        font-size: 30px;
+        line-height: 50px;
+    }
+    
+    .title {
+        text-align: left;
+        padding-top: 15px;
+        padding-bottom: 5px;
+        padding-left: 5%;
+        padding-right: 2%;
+        font-size: 16px;
+    }
+    
+    .axis path {
+        stroke: black;
+        stroke-width: 0;
+        display: none;
+    }
+    
+    .axis line {
+        fill: none;
+        stroke: black;
+        stroke-width: 0;
+        shape-rendering: crispEdges;
+    }
+    
+    .axis text {
+        font-size: 14px;
+    }
+    
+    .axis.title {
+        font-size: 16px;
+    }
+    
+    .hbar {
+        width: 60%;
+        height: 1px;
+        background-color: #505050;
+        margin: 15px auto;
+    }
+    
+    @media (max-width: 600px) {
+        .button-hash {
+            font-size: 16px;
+        }
+    }
+    
+    @media (max-width: 500px) {
+        .viz-title {
+            font-size: 24px;
+        }
+        .button-hash {
+            font-size: 12px;
+        }
+        text.linechart {
+            font-size: 20px;
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .viz-title {
+            font-size: 20px;
+        }
+        text.linechart {
+            font-size: 14px;
+        }
+    }
 </style>
 
 <body>
-  <div class="d3-container">
-      <div class="button-container">
-          <div class="viz-title" style="">
-            <a href="https://www.stattleship.com">
-              <img src="three_sports_emblem.png" style="height: 50px; float: left;"/>
-            </a>
-            <div style="display: inline-block;">Super Bowl 50 Emoji Use</div>
-          </div>
-          <div class="button-hash" id="0" data-active="false">#Broncos</div>
-          <div class="button-hash" id="1" data-active="false">#KeepPounding</div>
-          <div class="button-hash" id="2" data-active="true" style="background-color: #FFDE69;">#SB50</div>
-          <div class="button-hash" id="3" data-active="false">Manning</div>
-          <div class="button-hash" id="4" data-active="false">Newton</div>
-      </div>
-      <div class="hbar"></div>
-      <div class="chart title">Emoji Use Throughout the Day<div class="button allday" data-time="all">All Day</div></div>
-      <div class="chart-line"></div>
-      <div class="hbar"></div>
-      <div class="chart title">Most Popular Emoji</div>
-      <div class="chart-bubble"></div>
-  </div>
-  <script src="viz_sb50_emoji.js"></script>
+    <div class="outer">
+        <div class="d3-container">
+            <div class="button-container">
+                <div class="viz-title" style="">
+                    <a href="https://www.stattleship.com">
+                        <img src="three_sports_emblem.png" style="height: 50px; float: left;" />
+                    </a>
+                    <div style="display: inline-block;">Super Bowl 50 Emoji Use</div>
+                </div>
+                <div class="button-hash" id="0" data-active="false">#Broncos</div>
+                <div class="button-hash" id="1" data-active="false">#KeepPounding</div>
+                <div class="button-hash" id="2" data-active="true" style="background-color: #FFDE69;">#SB50</div>
+                <div class="button-hash" id="3" data-active="false">Manning</div>
+                <div class="button-hash" id="4" data-active="false">Newton</div>
+            </div>
+            <div class="hbar"></div>
+            <div class="chart title">Emoji Use Throughout the Day <span style="font-size: 10px;">(All times local)</span>
+                <div class="button allday"
+                data-time="all">All Day</div>
+            </div>
+            <div class="chart-line"></div>
+            <div class="hbar"></div>
+            <div class="chart title">Most Popular Emoji</div>
+            <div class="chart-bubble"></div>
+        </div>
+    </div>
+    <script src="viz_sb50_emoji.js"></script>
 </body>
