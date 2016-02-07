@@ -1,3 +1,5 @@
+ 
+ //from http://stackoverflow.com/questions/1960473/unique-values-in-an-array
  Array.prototype.getUnique = function(){
     var u = {}, a = [];
     for(var i = 0, l = this.length; i < l; ++i){
@@ -287,7 +289,7 @@ function build() {
             var chartLine = new BuildLine()
             chartLine.initialize()
 
-            // Move d to be adjacent to the cluster node.
+            // From https://gist.github.com/mbostock/1747543
             function cluster(alpha) {
                 return function(d) {
                     var cluster = clusters[d.group];
@@ -307,6 +309,7 @@ function build() {
                 };
             }
 
+            // From http://bl.ocks.org/mbostock/1804919
             function collide(alpha) {
                 var quadtree = d3.geom.quadtree(outArray);
                 return function(d) {
