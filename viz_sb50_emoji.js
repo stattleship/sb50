@@ -20,7 +20,7 @@ d3.selection.prototype.moveToFront = function() {
 
 
 function build() {
-
+    console.log(window.innerWidth)
     var width = Math.min(Math.max(320, window.innerWidth),800),
         height = $('.d3-container').innerHeight() - $('.button-container').outerHeight(true) - 2 * $('.chart.title').outerHeight(true) - 2 * $('.hbar').outerHeight(true) - 131,
         padding = 1, // separation between same-color nodes
@@ -144,7 +144,7 @@ function build() {
             //finds the largest node in cluster
             outArray.forEach(function(d, i) {
 
-                outArray[i].radius = Math.sqrt((25*d.radius/max*mult)/Math.PI*50) //RADIUS Size
+                outArray[i].radius = Math.sqrt((20*d.radius/max*mult)/Math.PI*50) //RADIUS Size
 
                 outArray[i].y = d.group * height / m /2
                 if (!clusters[d.group] || (d.radius > clusters[d.group].radius))
@@ -232,7 +232,7 @@ function build() {
                         .attr('width', startGame - startPre)
                         .attr('y', scaleY(lineMax))
                         .attr('height', scaleY(0) - 2)
-                        .style('fill', '707070')
+                        .style('fill', '#707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > startPreT ? 'time pre click' : 'time pre'
                         })
@@ -254,7 +254,7 @@ function build() {
                         .attr('width', endGame - startGame - 5)
                         .attr('y', scaleY(lineMax))
                         .attr('height', scaleY(0)-2)
-                        .style('fill', '707070')
+                        .style('fill', '#707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > startGameT ? 'time game click' : 'time game'
                         })
@@ -282,7 +282,7 @@ function build() {
                         .attr('width', endPost - endGame - 5)
                         .attr('y', scaleY(lineMax))
                         .attr('height', scaleY(0) - 2)
-                        .style('fill', '707070')
+                        .style('fill', '#707070')
                         .attr('class', function() {
                             return datetimeUnique.slice(-1) > endGameT ? 'time post click' : 'time post'
                         })
