@@ -114,7 +114,7 @@ function build() {
 
                 datetimeUnique.forEach(function(dt, i) {
                     var groupTimeNodes = groupNodes.filter(function(d) {
-                        return d.datetime == dt
+                        return d.datetime == dt && dt < Date.UTC(2016, 1, 8, 8, 0, 0)
                     })
                     var emojiCount = groupTimeNodes.reduce(function(p,c) {
                         return p + c.radius
